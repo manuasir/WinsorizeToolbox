@@ -45,10 +45,15 @@ class Winsorize(object):
         #     datatype="Field",
         #     parameterType="Derived",
         #     direction="Output")
-
+        percentil = arcpy.Parameter(
+            displayName="Percentil",
+            name="percentil",
+            datatype="Long",
+            parameterType="Required",
+            direction="Input")
         # winsorize_field.parameterDependencies = [winsorize_field.name]
         # arcpy.AddField_management(entrada, "nuevoCampo", "LONG", 9, "", "", "refcode", "NULLABLE", "REQUIRED")
-        parameters = [entrada,winsorize_field]
+        parameters = [entrada,winsorize_field,percentil]
 
         return parameters
 
@@ -72,7 +77,9 @@ class Winsorize(object):
     def execute(self, parameters, messages):
         tabla = parameters[0].valueAsText
         campo = parameters[1].valueAsText
+        percentil_entero = parameters[2].valueAsText
         
+        percentil = float(percentil_entero)/100
         mylist = [(0.0)]
         i=0
         index=0
@@ -83,10 +90,7 @@ class Winsorize(object):
             mylist.insert(index,row.getValue(campo))
             index=index+1
             row = rows.next()
-
-        resultado = scipy.stats.mstats.winsorize(mylist, limits=0.05)
-
-
+        resultado = scipy.stats.mstats.winsorize(mylist, limits=percentil)
         fieldList = arcpy.ListFields(tabla)
         fieldName = [f.name for f in fieldList]
 
