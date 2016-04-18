@@ -37,7 +37,7 @@ class Winsorize(object):
 
         # winsorize_field.value = "winsorize"
         # winsorize_field.columns = [['Field', 'Fields'], ['Long', 'Ranks']]
-        winsorize_field.parameterDependencies = [entrada.name]
+
         # # Derived Output Features parameter
         # out_features = arcpy.Parameter(
         #     displayName="Salida",
@@ -52,6 +52,7 @@ class Winsorize(object):
             parameterType="Required",
             direction="Input")
         # winsorize_field.parameterDependencies = [winsorize_field.name]
+        winsorize_field.parameterDependencies = [entrada.name]
         # arcpy.AddField_management(entrada, "nuevoCampo", "LONG", 9, "", "", "refcode", "NULLABLE", "REQUIRED")
         parameters = [entrada,winsorize_field,percentil]
 
@@ -78,7 +79,7 @@ class Winsorize(object):
         tabla = parameters[0].valueAsText
         campo = parameters[1].valueAsText
         percentil_entero = parameters[2].valueAsText
-        
+
         percentil = float(percentil_entero)/100
         mylist = [(0.0)]
         i=0
@@ -109,6 +110,8 @@ class Winsorize(object):
                 cursor.updateRow(row)
                 row = cursor.next()
                 i=i+1
+        del row
+        del rows
 
         # mylist = [(0.0)]
 
