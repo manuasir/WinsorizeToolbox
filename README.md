@@ -5,3 +5,7 @@ in the statistical data to reduce the effect of possibly spurious outliers.
 # Dependencies
 - scipy 
 - arcpy 
+
+## Author
+
+Manuel J. Bernal
