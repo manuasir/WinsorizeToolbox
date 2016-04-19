@@ -8,4 +8,4 @@ in the statistical data to reduce the effect of possibly spurious outliers.
 
 ## Author
 
-Manuel J. Bernal - Granada, Spain 
+Manuel J. Bernal
