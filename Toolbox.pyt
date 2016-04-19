@@ -97,7 +97,7 @@ class Winsorize(object):
 
         field = "Winsor"
         if field in fieldName:
-            arcpy.AddError("NO VA.".format(input))
+            arcpy.AddError("La columna WINSOR ya existe.".format(input))
             raise arcpy.ExecuteError
         else:
             arcpy.AddField_management(tabla, field, "TEXT")
@@ -112,6 +112,7 @@ class Winsorize(object):
                 i=i+1
         del row
         del rows
+        del cursor
 
         # mylist = [(0.0)]
 
